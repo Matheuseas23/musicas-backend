@@ -1,7 +1,2 @@
-# Arquivos internos do Claude (prints da atividade mostram a senha do banco)
-CLAUDE.md
-memoria-claude/
-
-# Nunca vão para o GitHub (etapa 2)
 node_modules
 .env
