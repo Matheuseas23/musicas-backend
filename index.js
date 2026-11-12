@@ -30,6 +30,22 @@ app.get("/", (request, response) => {
     })
 })
 
+// etapa 7: cadastrar uma música
+app.post("/cadastrar", (request, response) => {
+    const { titulo, artista, genero, ano, duracao } = request.body // dados que vieram do frontend
+
+    const comandoInsert = "INSERT INTO musicas_matheusgarcia(titulo, artista, genero, ano, duracao) VALUES (?, ?, ?, ?, ?)"
+
+    sql.query(comandoInsert, [titulo, artista, genero, ano, duracao], (error) => {
+        if (error) {
+            console.log(error) // mostra o erro no terminal
+            return
+        }
+
+        response.status(201).json({ mensagem: "Música cadastrada com sucesso!" })
+    })
+})
+
 app.listen(3000, () => {
     console.log("Servidor online")
 })
