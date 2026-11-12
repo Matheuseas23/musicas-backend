@@ -62,6 +62,39 @@ app.delete("/apagar/:id", (request, response) => {
     })
 })
 
+// etapa 9: buscar uma música pelo id (para a página de editar)
+app.get("/musica/:id", (request, response) => {
+    const { id } = request.params // o id que veio na URL
+
+    const comandoSelect = "SELECT * FROM musicas_matheusgarcia WHERE id = ?"
+
+    sql.query(comandoSelect, [id], (error, data) => {
+        if (error) {
+            console.log(error) // mostra o erro no terminal
+            return
+        }
+
+        response.json(data[0]) // só a primeira posição: a própria música
+    })
+})
+
+// etapa 9: salvar as alterações de uma música
+app.put("/editar/:id", (request, response) => {
+    const { id } = request.params // o id que veio na URL
+    const { titulo, artista, genero, ano, duracao } = request.body // dados que vieram do frontend
+
+    const comandoUpdate = "UPDATE musicas_matheusgarcia SET titulo = ?, artista = ?, genero = ?, ano = ?, duracao = ? WHERE id = ?"
+
+    sql.query(comandoUpdate, [titulo, artista, genero, ano, duracao, id], (error) => { // o id vai por último (último ?)
+        if (error) {
+            console.log(error) // mostra o erro no terminal
+            return
+        }
+
+        response.json({ mensagem: "Música alterada com sucesso!" })
+    })
+})
+
 app.listen(3000, () => {
     console.log("Servidor online")
 })
