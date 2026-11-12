@@ -46,6 +46,22 @@ app.post("/cadastrar", (request, response) => {
     })
 })
 
+// etapa 8: apagar uma música
+app.delete("/apagar/:id", (request, response) => {
+    const { id } = request.params // o id que veio na URL
+
+    const comandoDelete = "DELETE FROM musicas_matheusgarcia WHERE id = ?"
+
+    sql.query(comandoDelete, [id], (error) => {
+        if (error) {
+            console.log(error) // mostra o erro no terminal
+            return
+        }
+
+        response.json({ mensagem: "Música apagada com sucesso!" })
+    })
+})
+
 app.listen(3000, () => {
     console.log("Servidor online")
 })
